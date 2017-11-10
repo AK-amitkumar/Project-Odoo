@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="pos_reprint">
+            <t t-foreach="docs" t-as="o">
+                <div id="pos_reprint">
+
+                    <div class="reprint">
+
+                        <div class="pos-sale-ticket">
+                            <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';">Cty TNHH N&amp;Y</p>
+                            <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';">Keds Shoes</p>
+                            <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';">Tel:0838222046</p>
+                            <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';">L3-41 Saigon Center</p>
+                            <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';">Phieu tam tinh, Khong thay the hoa don</p>
+                            <div class="pos-center-align"><t t-esc="datetime.datetime.now().strftime('%d/%m/%Y %H:%M %p')"/> <t t-esc="o.pos_reference"/></div>
+                            <br />
+                            <t t-esc="o.company_id.name"/><br />
+                            Phone: <t t-esc="o.company_id and o.company_id.phone or ''"/><br />
+                            User: <t t-esc="o.user_id.name"/><br />
+                            <br />
+                            <table class='receipt-orderlines'>
+                                <colgroup>
+                                    <col width='50%'/>
+                                    <col width='20%'/>
+                                    <col width='30%'/>
+                                </colgroup>
+                                <tr t-foreach="o.lines" t-as="line">
+                                    <td>
+                                        <t t-esc="line.product_id.display_name"/>
+                                         <t t-if="line.discount > 0">
+                                            <div class="pos-disc-font">
+                                                With a <t t-esc="line.discount"/>% discount
+                                            </div>
+                                        </t>
+                                    </td>
+                                    <td class="pos-right-align">
+                                        <t t-esc="line.qty"/>
+                                    </td>
+                                    <td class="pos-right-align">
+                                        <t t-esc="line.price_unit"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <table class='receipt-total'>
+                                <tr>
+                                    <td>Subtotal:</td>
+                                    <td class="pos-right-align">
+                                        <t t-esc="o.get_total_wo_tax()"/>
+                                    </td>
+                                </tr>
+                                <t t-foreach="o.get_tax_detail()" t-as="taxdetail">
+                                    <tr>
+                                        <td><t t-esc="taxdetail" /></td>
+                                        <td class="pos-right-align">
+                                            <t t-esc="o.get_tax_detail()[taxdetail]" />
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>Discount:</td>
+                                    <td class="pos-right-align">
+                                        <t t-esc="o.get_discount()"/>
+                                    </td>
+                                </tr>
+                                <tr class="emph">
+                                    <td>Total:</td>
+                                    <td class="pos-right-align">
+                                        <t t-esc="o.amount_total"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <table class='receipt-paymentlines'>
+                                  <tr>
+                                      <td>
+                                          Cash (VND)
+                                      </td>
+                                      <td class="pos-right-align">
+                                          <t t-esc="o.get_cash()"/>
+                                      </td>
+                                  </tr>
+                            </table>
+                            <br />
+                            <table class='receipt-change'>
+                                <tr><td>Change:</td><td class="pos-right-align">
+                                    <t t-esc="o.get_change()"/>
+                                    </td></tr>
+                            </table>
+                            <div class="receipt-thanks"><p>Xin cảm ơn quý khách. Hẹn gặp lại!!!</p></div>
+                            <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';">Doi tra hang trong 5 ngay, Khong doi tra hang cho sale, khong hoan tien mat, giu bill khi doi tra hang. Without Exchange for sales item, No refund.</p>
+                        <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';">thank you for shopping with us</p>
+                        <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';"><t t-esc="datetime.datetime.now().strftime('%d/%m/%Y %H:%M %p')"/></p>
+                        </div>
+
+                    </div>
+					<style type="text/css" media="print">
+                        @page {size:  auto; margin: 0mm;}
+                        html{background-color: #FFFFFF; margin: 0px; width: 300px;}
+                        body{padding: 5px;}
+                     </style>
+                </div>
+
+                <script type="text/javascript">
+                     function printFD (divName){
+                         var printContents = document.getElementById(divName).innerHTML;
+                         var originalContents = document.body.innerHTML;
+                         document.body.innerHTML = printContents;
+                         window.print();
+                         document.body.innerHTML = originalContents;
+                     }
+                </script>
+            </t>
+            <link rel="stylesheet" href="/project_shop/static/src/css/styles.css"/>
+            <button onclick="printFD('pos_reprint')"> In </button>
+        </template>
+    </data>
+</odoo>

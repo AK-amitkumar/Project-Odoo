@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="custom_pos_order_form" model="ir.ui.view">
+        <field name="name">pos.order.custom.form</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='refund']" position="after">
+                <button name="pos_reprint" string="Reprint" type="object"/>
+            </xpath>
+            <xpath expr="//field[@name='pos_reference']" position="after">
+                <field name="parent_id" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='session_id']" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='extra']" position="before">
+                <page name="return" string="Return Orders">
+                    <field name="child_ids" readonly="1"/>
+                </page>
+            </xpath>
+       </field>
+    </record>
+    <record id="custom_pos_order_tree" model="ir.ui.view">
+        <field name="name">pos.order.custom.tree</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pos_reference']" position="after">
+                <field name="parent_id"/>
+                <field name="is_return"/>
+            </xpath>
+            <xpath expr="//field[@name='session_id']" position="after">
+                <field name="note"/>
+            </xpath>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">1</attribute>
+            </xpath>
+       </field>
+    </record>
+
+    <menuitem id="point_of_sale.menu_point_rep" name="Reports" parent="point_of_sale.menu_point_root" sequence="99" groups="project_shop.group_shop_pos_manager"/>
+    <menuitem id="point_of_sale.menu_report_order_details" name="Sale Details" action="point_of_sale.action_report_pos_details"
+              parent="point_of_sale.menu_point_rep" sequence="4" groups="point_of_sale.group_pos_manager"/>
+    <menuitem id="point_of_sale.menu_pos_session_all" parent="point_of_sale.menu_point_of_sale" action="point_of_sale.action_pos_session" sequence="2" groups="project_shop.group_shop_pos_manager"/>
+    <menuitem id="pos_promotion.pos_promotion_program"
+                  parent="point_of_sale.menu_point_root"
+                  sequence="17"
+                  name="Promotion"
+                  groups="point_of_sale.group_pos_manager,project_shop.group_shop_pos_promotion_manager"
+        />
+    <menuitem id="pos_promotion.menu_action_pos_promotion"
+                  parent="pos_promotion.pos_promotion_program"
+                  sequence="1"
+                  action="pos_promotion.action_pos_promotion"
+                  groups="point_of_sale.group_pos_manager,project_shop.group_shop_pos_promotion_manager"
+        />
+</odoo>

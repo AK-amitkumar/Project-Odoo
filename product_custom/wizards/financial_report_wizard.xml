@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="financial_report_wizard_view" model="ir.ui.view">
+            <field name="name">Financial Report</field>
+            <field name="model">financial.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Financial Report">
+                    <group col="2">
+                        <group colspan="1">
+                            <field name="date_from"/>
+                        </group>
+                        <group colspan="1">
+                            <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="type" widget="radio" options="{'horizontal': true}"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button type="object" name="print_report"
+                                string="Print" class="oe_highlight"/>
+                        <button special="cancel" class="btn-default" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="financial_report_wizard_action" model="ir.actions.act_window">
+            <field name="name">Financial Report</field>
+            <field name="res_model">financial.report.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_financial_report" action="financial_report_wizard_action" name="Financial Report" parent="sales_team.menu_sale_report" sequence="5"/>
+    </data>
+</odoo>

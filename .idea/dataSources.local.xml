@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="odoo_v1@localhost" uuid="7d7d66d4-a295-45d7-9c29-6c07adcb8cdb">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <secret-storage>master_key</secret-storage>
+      <first-sync>true</first-sync>
+      <user-name>odoo</user-name>
+    </data-source>
+    <data-source name="TEST_15_08@112.78.1.198" uuid="78f2b551-3e80-4880-a52f-da960a8ad65b">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <secret-storage>master_key</secret-storage>
+      <first-sync>true</first-sync>
+      <user-name>odoo</user-name>
+    </data-source>
+  </component>
+</project>

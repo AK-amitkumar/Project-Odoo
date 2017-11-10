@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="launch_financial_report"
+            model="financial.report.wizard"
+            string="Financial Report"
+            report_type="qweb-html"
+            name="product_custom.financial_report"
+            file="product_custom.financial_report"
+        />
+
+        <report
+            id="launch_pos_reprint"
+            model="pos.order"
+            string="POS Reprint"
+            report_type="qweb-html"
+            name="product_custom.pos_reprint"
+            file="product_custom.pos_reprint"
+        />
+    </data>
+</openerp>

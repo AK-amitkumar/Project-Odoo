@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_product_notification_tree" model="ir.ui.view">
+            <field name="name">product.notification.tree</field>
+            <field name="model">product.notification</field>
+            <field name="arch" type="xml">
+                <tree string="Notification" create="false" edit="false" delete="false">
+                    <field name="product_id"/>
+                    <field name="date"/>
+                    <field name="user_id"/>
+                    <field name="note"/>
+                    <field name="link" widget="url"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_product_notification" model="ir.actions.act_window">
+            <field name="name">Notification</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.notification</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help">Track log product when it had hold or sold.</field>
+        </record>
+
+        <menuitem name="Notification" action="action_product_notification" id="menu_product_notification_bds" parent="menu_info_product" sequence="5"/>
+    </data>
+</odoo>

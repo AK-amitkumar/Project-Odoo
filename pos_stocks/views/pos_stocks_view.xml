@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<odoo>
+	<record id="wk_pos_stock_qtys" model="ir.ui.view">
+		<field name="name">pos.config.product.form</field>
+		<field name="model">pos.config</field>
+		<field name="inherit_id" ref="point_of_sale.view_pos_config_form" />
+		<field name="arch" type="xml">
+			<field name="journal_ids" position="after">
+				<group>
+					<group string="POS Stock" >
+						<field name="wk_display_stock" />
+						<field name="wk_hide_out_of_stock" attrs=
+						"{'invisible':[('wk_display_stock','=',False)]}"/>
+						<field name="wk_stock_type" attrs=
+						"{'invisible':[('wk_display_stock','=',False)]}"/>
+						<field name="wk_continous_sale" attrs=
+						"{'invisible':[('wk_display_stock','=',False)]}"/>
+						<field name="wk_error_msg" attrs="{'invisible':['|',('wk_display_stock','=',False),('wk_continous_sale','=',True)]}"/>
+						<div attrs="{'invisible':['|',('wk_display_stock','=',False),('wk_continous_sale','=',True)]}">
+						  <b>Deny order when product qty is lower than</b>
+						</div>
+						<div>
+							<field name="wk_deny_val" attrs="{'invisible':['|',('wk_display_stock','=',False),('wk_continous_sale','=',True)]}"/>
+						</div>
+					</group>	
+				</group>
+			</field>
+		</field> 
+	</record> 
+</odoo>

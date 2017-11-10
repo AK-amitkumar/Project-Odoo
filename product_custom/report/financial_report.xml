@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <template id="product_custom.financial_report">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page" style="font-family: Times New Roman; font-size: 14px; margin-left:20px; margin-right:20px; padding-top:1px; padding-bottom:2px">
+                        <div class="oe_structure"/>
+                        <div class="row">
+                            <div class="body">
+                                <div class="row text-center" style="margin:0 0 0 0;">
+                                    <h3>
+                                        <t t-if="o.type == 'financial'">
+                                            <strong>
+                                                BÁO CÁO DOANH THU - CHI PHÍ
+                                            </strong>
+                                        </t>
+                                        <t t-if="o.type == 'revenue'">
+                                            <strong>
+                                                BÁO CÁO DOANH THU
+                                            </strong>
+                                        </t>
+                                    </h3>
+                                    <b>
+                                        <i>
+                                            ( Từ ngày <span t-field="o.date_from" t-field-options='{"format": "dd"}'/>
+                                            tháng
+                                            <span t-field="o.date_from" t-field-options='{"format": "MM"}'/>
+                                            năm
+                                            <span t-field="o.date_from" t-field-options='{"format": "yyyy"}'/> đến
+                                            ngày <span t-field="o.date_to" t-field-options='{"format": "dd"}'/>
+                                            tháng
+                                            <span t-field="o.date_to" t-field-options='{"format": "MM"}'/>
+                                            năm
+                                            <span t-field="o.date_to" t-field-options='{"format": "yyyy"}'/>)
+                                        </i>
+                                    </b>
+                                </div>
+                                <br/><br/><br/>
+                                <div class="row">
+                                    <table class="table table-striped table-bordered table-hover text-center">
+                                        <tr>
+                                            <th class="text-center" style="width:5%; vertical-align:middle; border:1px solid #171414">
+                                                STT
+                                            </th>
+                                            <th class="text-center" style="width:25%; vertical-align:middle; border:1px solid #171414">
+                                                NỘI DUNG
+                                            </th>
+                                            <th class="text-center" style="width:8%; vertical-align:middle; border:1px solid #171414">
+                                                NGÀY
+                                            </th>
+                                            <th class="text-center" style="width:8%; vertical-align:middle; border:1px solid #171414">
+                                                SỐ LƯỢNG
+                                            </th>
+                                            <th class="text-center" style="width:10%; vertical-align:middle; border:1px solid #171414">
+                                                ĐƠN GIÁ
+                                            </th>
+                                            <th class="text-center" style="width:9%; vertical-align:middle; border:1px solid #171414">
+                                                GIẢM GIÁ
+                                            </th>
+                                            <th class="text-center" style="width:20%; vertical-align:middle; border:1px solid #171414">
+                                                THUẾ
+                                            </th>
+                                            <th class="text-center" style="width:10%; vertical-align:middle; border:1px solid #171414">
+                                                SỐ TIỀN
+                                            </th>
+                                        </tr>
+                                        <t t-set="total" t-value="0"/>
+                                        <tr t-if="o.type == 'financial'">
+                                            <td class="text-left" colspan="7" style="vertical-align:middle; border:1px solid #171414">
+                                                <b>
+                                                    DOANH THU
+                                                </b>
+                                            </td>
+                                            <td class="text-right" colspan="1" style="border-style:solid; border:1px solid #171414">
+                                                <t t-set="total_revenue" t-value="o.get_total_revenue()"/>
+                                                <t t-set="total" t-value="total + total_revenue"/>
+                                                <b><span t-esc="o.convert_type(total_revenue)"/></b>
+                                            </td>
+                                        </tr>
+                                        <t t-set="i" t-value="1"/>
+                                        <t t-set="revenue" t-value="o.get_sales_revenue()"/>
+                                        <t t-if="len(revenue)" t-foreach="revenue" t-as="item">
+                                            <tr>
+                                                <td style="vertical-align:middle; border:1px solid #171414">
+                                                    <span t-esc="i"/>
+                                                    <t t-set="i" t-value="i+1"/>
+                                                </td>
+                                                <td class="text-left" style="border:1px solid #171414">
+                                                    <span t-esc="item['name']"/>
+                                                </td>
+                                                <td style="border:1px solid #171414">
+                                                    <span t-esc="item['date']"/>
+                                                </td>
+                                                <td style="border:1px solid #171414">
+                                                    <span t-esc="item['quantity']"/>
+                                                </td>
+                                                <td class="text-right"  style="border:1px solid #171414">
+                                                    <span t-esc="o.convert_type(item['price_unit'])"/>
+                                                </td>
+                                                <td style="border:1px solid #171414">
+                                                    <span t-esc="item['discount']"/> %
+                                                </td>
+                                                <td class="text-left" style="border:1px solid #171414">
+                                                    <span t-esc="item['tax']"/>
+                                                </td>
+                                                <td class="text-right" style="border:1px solid #171414">
+                                                    <span t-esc="o.convert_type(item['amount'])"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="o.type == 'financial'">
+                                            <tr>
+                                                <td class="text-left" colspan="7" style="vertical-align:middle; border-style:solid; border:1px solid #171414">
+                                                    <b>
+                                                        CHI PHÍ
+                                                    </b>
+                                                </td>
+                                                <td class="text-right" colspan="1" style="border-style:solid; border:1px solid #171414">
+                                                    <t t-set="total_costs" t-value="o.get_total_costs()"/>
+                                                    <t t-set="total" t-value="total - total_costs"/>
+                                                    <b><span t-esc="o.convert_type(total_costs)"/></b>
+                                                </td>
+                                            </tr>
+                                            <t t-set="i" t-value="1"/>
+                                            <t t-set="costs" t-value="o.get_costs()"/>
+                                            <t t-if="len(costs)" t-foreach="costs" t-as="item">
+                                                <tr>
+                                                    <td style="vertical-align:middle; border:1px solid #171414">
+                                                        <span t-esc="i"/>
+                                                        <t t-set="i" t-value="i+1"/>
+                                                    </td>
+                                                    <td class="text-left" style="border:1px solid #171414">
+                                                        <span t-esc="item['name']"/>
+                                                    </td>
+                                                    <td style="border:1px solid #171414">
+                                                        <span t-esc="item['date']"/>
+                                                    </td>
+                                                    <td style="border:1px solid #171414">
+                                                        <span t-esc="item['quantity']"/>
+                                                    </td>
+                                                    <td class="text-right"  style="border:1px solid #171414">
+                                                        <span t-esc="o.convert_type(item['price_unit'])"/>
+                                                    </td>
+                                                    <td style="border:1px solid #171414">
+                                                        <span t-esc="item['discount']"/> %
+                                                    </td>
+                                                    <td class="text-left" style="border:1px solid #171414">
+                                                        <span t-esc="item['tax']"/>
+                                                    </td>
+                                                    <td class="text-right" style="border:1px solid #171414">
+                                                        <span t-esc="o.convert_type(item['amount'])"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+
+                                            <tr>
+                                                <td class="text-left" colspan="7" style="vertical-align:middle; border-style:solid; border:1px solid #171414">
+                                                    <b>
+                                                        CHI PHÍ LƯƠNG
+                                                    </b>
+                                                </td>
+                                                <td class="text-right" colspan="1" style="border:1px solid #171414">
+                                                    <t t-set="total_payslips" t-value="o.get_total_payslips()"/>
+                                                    <t t-set="total" t-value="total - total_payslips"/>
+                                                    <b><span t-esc="o.convert_type(total_payslips)"/></b>
+                                                </td>
+                                            </tr>
+                                            <t t-set="i" t-value="1"/>
+                                            <t t-set="payslips" t-value="o.get_salary()"/>
+                                            <t t-if="len(payslips)" t-foreach="payslips" t-as="item">
+                                                <tr>
+                                                    <td style="vertical-align:middle; border:1px solid #171414">
+                                                        <span t-esc="i"/>
+                                                        <t t-set="i" t-value="i+1"/>
+                                                    </td>
+                                                    <td class="text-left" style="border:1px solid #171414">
+                                                        <span t-esc="item['name']"/>
+                                                    </td>
+                                                    <td style="border:1px solid #171414">
+                                                        <span t-esc="item['date']"/>
+                                                    </td>
+                                                    <td class="text-right" colspan="5" style="border:1px solid #171414">
+                                                        <span t-esc="o.convert_type(item['amount'])"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <tr>
+                                            <td colspan="7" style="border:1px solid #171414">
+                                                <t t-if="o.type == 'financial'">
+                                                    <strong>
+                                                        TỔNG = DOANH THU - CHI PHÍ - CHI PHÍ LƯƠNG
+                                                    </strong>
+                                                </t>
+                                                <t t-if="o.type == 'revenue'">
+                                                    <strong>
+                                                        TỔNG
+                                                    </strong>
+                                                </t>
+                                            </td>
+                                            <td t-if="o.type == 'financial'" class="text-right" style="border:1px solid #171414">
+                                                <strong><span t-esc="o.convert_type(total)"/></strong>
+                                            </td>
+                                            <td t-if="o.type == 'revenue'" class="text-right" style="border:1px solid #171414">
+                                                <t t-set="total_revenue" t-value="o.get_total_revenue()"/>
+                                                <t t-set="total" t-value="total + total_revenue"/>
+                                                <strong><span t-esc="o.convert_type(total_revenue)"/></strong>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

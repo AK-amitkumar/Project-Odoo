@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<odoo>
+    <data noupdate="1">
+        <record id="product.product_product_7" model="product.product">
+            <field name="available_in_pos">True</field>
+        </record>
+        <record id="product.product_product_12" model="product.product">
+            <field name="available_in_pos">True</field>
+        </record>
+    </data>
+</odoo>

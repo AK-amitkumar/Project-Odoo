@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--<template id="website_helpdesk_form.ticket_submited" name="Ticket Received">-->
+        <!--<t t-call="website.layout">-->
+            <!--<div id="wrap" class="oe_structure oe_empty">-->
+                <!--<div class="container">-->
+                    <!--<div clas="row">-->
+                        <!--<h1 class="text-center"><i class="fa fa-check-circle fa-2x text-success" /></h1>-->
+                        <!--<h1 class="text-center">Thank you for submitting your issue, our team will get right on it!</h1>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+         <!--</t>-->
+    <!--</template>-->
+
+    <template id="ticket_submit_inherit" inherit_id="website_helpdesk_form.ticket_submit">
+        <xpath expr="//form/div[1]" position="after">
+            <div class="form-group form-field o_website_form_required">
+                <div class="col-md-3 col-sm-4 text-right">
+                    <label class="control-label" for="partner_mobile">Your Phone/Mobile</label>
+                </div>
+                <div class="col-md-7 col-sm-8">
+                    <input type='text' class='form-control o_website_form_input' name="partner_mobile" required="1"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

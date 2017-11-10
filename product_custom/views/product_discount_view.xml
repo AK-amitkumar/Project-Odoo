@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_discount_tree" model="ir.ui.view">
+            <field name="name">product.discount.tree</field>
+            <field name="model">product.discount</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree string="Discount">
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_discount_form" model="ir.ui.view">
+            <field name="name">product.discount.form</field>
+            <field name="model">product.discount</field>
+            <field name="arch" type="xml">
+                <form string="Product Discount">
+                    <header>
+                        <button name="get_product" string="Update Product" type="object" class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date_from"/>
+                            </group>
+                            <group>
+                                <field name="date_to"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Discount Lines">
+                                <field name="line_ids">
+                                    <tree string="Discount Lines" editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="price"/>
+                                        <field name="discount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_product_discount" model="ir.actions.act_window">
+            <field name="name">Product Discount</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.discount</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p>
+                    Create Discount for Product.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_product_discount" action="action_product_discount" parent="sales_team.menu_sales" sequence="100"/>
+
+    </data>
+</odoo>

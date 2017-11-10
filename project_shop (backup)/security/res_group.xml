@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="group_inventory_receipts" model="res.groups">
+            <field name="name">Receipts User</field>
+            <field name="category_id" ref="base.module_category_warehouse_management"/>
+            <field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]"/>
+            <field name="comment">Inventory user just only receipts</field>
+        </record>
+
+        <record id="group_inventory_delivery" model="res.groups">
+            <field name="name">Delivery User</field>
+            <field name="category_id" ref="base.module_category_warehouse_management"/>
+            <field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]"/>
+            <field name="comment">Inventory user just only delivery</field>
+        </record>
+
+        <!--<record id="group_inventory_internal_transfer" model="res.groups">-->
+            <!--<field name="name">Internal Transfer User</field>-->
+            <!--<field name="category_id" ref="base.module_category_warehouse_management"/>-->
+            <!--<field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]"/>-->
+            <!--<field name="comment">Inventory user just only transfer</field>-->
+        <!--</record>-->
+
+        <record id="group_inventory_shop_manager" model="res.groups">
+            <field name="name">Shop Manager</field>
+            <field name="category_id" ref="base.module_category_warehouse_management"/>
+            <!--<field name="implied_ids" eval="[(4, ref('group_inventory_receipts')), (4, ref('group_inventory_delivery')), (4, ref('group_inventory_internal_transfer'))]"/>-->
+            <field name="implied_ids" eval="[(4, ref('group_inventory_receipts')), (4, ref('group_inventory_delivery'))]"/>
+            <field name="comment">Shop Manager can receipt, delivery</field>
+        </record>
+
+        <!--<record id="group_inventory_manager" model="res.groups">-->
+            <!--<field name="name">Stock Manager</field>-->
+            <!--<field name="category_id" ref="base.module_category_warehouse_management"/>-->
+            <!--&lt;!&ndash;<field name="implied_ids" eval="[(4, ref('group_inventory_receipts')), (4, ref('group_inventory_delivery')), (4, ref('group_inventory_internal_transfer'))]"/>&ndash;&gt;-->
+            <!--<field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]"/>-->
+            <!--<field name="comment">Stock Manager can only view report.</field>-->
+        <!--</record>-->
+
+    </data>
+</odoo>

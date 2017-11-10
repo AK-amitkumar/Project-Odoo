@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_shop_stock_move_inherit_tree" model="ir.ui.view">
+        <field name="name">shop.stock.move.inherit.tree</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='location_id']" position="before">
+                <field name="first_location_id"/>
+            </xpath>
+            <xpath expr="//field[@name='location_dest_id']" position="after">
+                <field name="end_location_dest_id"/>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="receipt_status"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="shop_picking_tree" model="ir.ui.view">
+            <field name="name">stock.picking.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" decoration-danger="state not in ('cancel', 'done') and min_date &lt; current_date" string="Picking list">
+                    <field name="date"/>
+                    <field name="first_location_id"/>
+                    <field name="location_id"/>
+                    <field name="location_dest_id"/>
+                    <field name="end_location_dest_id"/>
+                    <field name="total" sum="Total"/>
+                    <field name="receipt_status"/>
+                    <field name="state"/>
+                    <field name="note"/>
+                    <field name="min_date" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_shop_stock_picking_inherit_tree" model="ir.ui.view">
+        <field name="name">shop.stock.picking.inherit.tree</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="decoration-danger">receipt_status == 'waiting'</attribute>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="total"/>
+                <field name="receipt_status"/>
+            </xpath>
+            <xpath expr="//field[@name='location_dest_id']" position="before">
+                <field name="location_id"/>
+            </xpath>
+            <xpath expr="//field[@name='min_date']" position="after">
+                <field name="receive_date"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_shop_stock_picking_inherit_form" model="ir.ui.view">
+        <field name="name">shop.stock.picking.inherit.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='backorder_id']" position="after">
+                <field name="location_ids" widget="many2many_tags" invisible="1"/>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_confirm_receipt" attrs="{'invisible': ['|', '|', ('receipt_status', '=', 'received'), ('picking_type_code', '!=', 'outgoing'), ('state', '!=', 'done')]}"
+                        string="Confirm Receipt" type="object" class="oe_highlight" groups="project_shop.group_inventory_shop_manager,stock.group_stock_manager,base.group_system"/>
+            </xpath>
+            <xpath expr="//field[@name='location_id']" position="after">
+                <field name="first_location_id" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='min_date']" position="after">
+                <field name="receive_date" attrs="{'readonly': [('state', 'in', ('cancel', 'done'))]}"/>
+            </xpath>
+            <xpath expr="//field[@name='location_dest_id']" position="after">
+                <field name="end_location_dest_id" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+                <field name="receipt_status" readonly="1" attrs="{'invisible': [('picking_type_code', 'not in', ('outgoing', 'incoming'))]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_shop_stock_inventory_inherit_form" model="ir.ui.view">
+        <field name="name">shop.stock.inventory.inherit.form</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock.view_inventory_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='exhausted']" position="after">
+                <field name="location_ids" widget="many2many_tags" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='location_id']" position="attributes">
+                <attribute name="domain">[('id','in', location_ids[0][2])]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_shop_stock_scrap_inherit_form" model="ir.ui.view">
+        <field name="name">shop.stock.scrap.inherit.form</field>
+        <field name="model">stock.scrap</field>
+        <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='picking_id']" position="after">
+                <field name="location_ids" widget="many2many_tags" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='location_id']" position="attributes">
+                <attribute name="domain">[('id','in', location_ids[0][2])]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_stock_location_inherit_form" model="ir.ui.view">
+        <field name="name">stock.location.inherit.form</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//h2" position="after">
+                <group>
+                    <field name="user_ids" widget="many2many_tags"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem id="stock.menu_warehouse_report" name="Reports" sequence="99" parent="stock.menu_stock_root" groups="stock.group_stock_manager,group_inventory_shop_manager"/>
+
+</odoo>

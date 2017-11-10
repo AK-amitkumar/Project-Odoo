@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_shop_stock_picking_inherit_form" model="ir.ui.view">
+        <field name="name">shop.stock.picking.inherit.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='backorder_id']" position="after">
+                <field name="location_ids" widget="many2many_tags" invisible="1"/>
+            </xpath>
+            <!--<xpath expr="//field[@name='location_dest_id']" position="attributes">-->
+                <!--<attribute name="domain">[('id','in', location_ids[0][2])]</attribute>-->
+            <!--</xpath>-->
+        </field>
+    </record>
+
+    <record id="view_shop_stock_inventory_inherit_form" model="ir.ui.view">
+        <field name="name">shop.stock.inventory.inherit.form</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock.view_inventory_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='exhausted']" position="after">
+                <field name="location_ids" widget="many2many_tags" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='location_id']" position="attributes">
+                <attribute name="domain">[('id','in', location_ids[0][2])]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_shop_stock_scrap_inherit_form" model="ir.ui.view">
+        <field name="name">shop.stock.scrap.inherit.form</field>
+        <field name="model">stock.scrap</field>
+        <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='picking_id']" position="after">
+                <field name="location_ids" widget="many2many_tags" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='location_id']" position="attributes">
+                <attribute name="domain">[('id','in', location_ids[0][2])]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_stock_location_inherit_form" model="ir.ui.view">
+        <field name="name">stock.location.inherit.form</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//h2" position="after">
+                <group>
+                    <field name="user_ids" widget="many2many_tags"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem id="stock.menu_warehouse_report" name="Reports" sequence="99" parent="stock.menu_stock_root" groups="stock.group_stock_manager,group_inventory_shop_manager"/>
+</odoo>

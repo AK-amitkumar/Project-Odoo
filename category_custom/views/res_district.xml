@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_country_district_tree" model="ir.ui.view">
+            <field name="name">res.district.tree</field>
+            <field name="model">res.district</field>
+            <field name="arch" type="xml">
+                <tree string="District">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="state_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_country_district_form" model="ir.ui.view">
+            <field name="name">res.district.form</field>
+            <field name="model">res.district</field>
+            <field name="arch" type="xml">
+                <form string="District">
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="code" required="1"/>
+                        <field name="state_id" options='{"no_open": True}' required="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_country_district" model="ir.actions.act_window">
+            <field name="name">District</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.district</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_country_district_tree"/>
+            <field name="help">If you are working on the American market, you can manage the different federal states you are working on from here. Each state is attached to one country.</field>
+        </record>
+
+        <menuitem id="menu_position_bds" name="Localization" parent="menu_info_product" sequence="10" groups="sales_team.group_sale_manager"/>
+        <menuitem action="base.action_country_state" id="menu_country_state_partner" parent="menu_position_bds" name="City" sequence="1"/>
+        <menuitem action="action_country_district" id="menu_country_district_partner" parent="menu_position_bds" sequence="2"/>
+    </data>
+</odoo>

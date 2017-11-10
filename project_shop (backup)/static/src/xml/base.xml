@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-extend='AppSwitcher.Content'>
+        <t t-jquery=".o_apps" t-operation="replace">
+            <div t-if="widget.state.apps.length" class="o_apps">
+                <t t-set="focused_app_index" t-value="widget.get_app_index()"/>
+                <t t-foreach="widget.state.apps" t-as="app">
+                    <t t-if="app.action != 37">
+                        <a
+                            t-att-class="'o_app o_menuitem' + ((focused_app_index === app_index)? ' o_focused' : '')"
+                            t-att-data-menu="app.id"
+                            t-att-data-action-model="app.action ? app.action.split(',')[0] : ''"
+                            t-att-data-action-id="app.action"
+                            t-att-data-menu-xmlid="app.xmlid"
+                            t-att-href="app.href ? app.href : ('#menu_id='+app.id+'&amp;action_id='+app.action)">
+                            <img t-if="app.web_icon_data" class="o_app_icon" t-att-src="app.web_icon_data"/>
+                            <t t-if="!app.web_icon_data" t-raw="app.web_icon"/>
+                            <div class="o_caption"><t t-esc="app.label"/></div>
+                        </a>
+                    </t>
+                </t>
+            </div>
+        </t>
+    </t>
+</templates>

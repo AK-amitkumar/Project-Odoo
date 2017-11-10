@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_wizard_stock_report" model="ir.ui.view">
+        <field name="name">Stock Report</field>
+        <field name="model">stock.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Choose your date">
+                <group>
+                    <field name="type" required="1"/>
+                    <field name="location_id" domain="[('usage', '=', 'internal')]"/>
+                </group>
+                <group>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </group>
+                <footer>
+                    <button name="open_report" string="Open Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_wizard_stock_report" model="ir.actions.act_window">
+        <field name="name">Stock Report</field>
+        <field name="res_model">stock.report.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_wizard_stock_report"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="menu_action_wizard_stock_report" action="action_wizard_stock_report" parent="stock.menu_warehouse_report" sequence="12"/>
+</odoo>

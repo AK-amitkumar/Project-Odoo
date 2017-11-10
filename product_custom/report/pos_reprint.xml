@@ -1,0 +1,100 @@
+
+<odoo>
+    <data>
+        <template id="pos_reprint">
+            <t t-foreach="docs" t-as="o">
+                <div class="pos-sale-ticket">
+
+                    <div class="pos-center-align"><t t-esc="datetime.datetime.now().strftime('%d/%m/%Y %H:%M %p')"/> <t t-esc="o.pos_reference"/></div>
+                    <br />
+                    <t t-esc="o.company_id.name"/><br />
+                    Phone: <t t-esc="o.company_id and o.company_id.phone or ''"/><br />
+                    User: <t t-esc="o.user_id.name"/><br />
+                    <br />
+                    <!--<t t-if="receipt.header">-->
+                        <!--<div style='text-align:center'>-->
+                            <!--<t t-esc="receipt.header" />-->
+                        <!--</div>-->
+                        <!--<br />-->
+                    <!--</t>-->
+                    <table class='receipt-orderlines'>
+                        <colgroup>
+                            <col width='60%' />
+                            <col width='15%' />
+                            <col width='25%' />
+                        </colgroup>
+                        <tr t-foreach="o.lines" t-as="line">
+                            <td>
+                                <t t-esc="line.product_id.name"/>
+                                 <t t-if="line.discount > 0">
+                                    <div class="pos-disc-font">
+                                        With a <t t-esc="line.discount"/>% discount
+                                    </div>
+                                </t>
+                            </td>
+                            <td class="pos-right-align">
+                                <t t-esc="line.qty"/>
+                            </td>
+                            <td class="pos-right-align">
+                                <t t-esc="line.price_unit"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <table class='receipt-total'>
+                        <tr>
+                            <td>Subtotal:</td>
+                            <td class="pos-right-align">
+                                <t t-esc="o.get_total_wo_tax()"/>
+                            </td>
+                        </tr>
+                        <t t-foreach="o.get_tax_detail()" t-as="taxdetail">
+                            <tr>
+                                <td><t t-esc="taxdetail" /></td>
+                                <td class="pos-right-align">
+                                    <t t-esc="o.get_tax_detail()[taxdetail]" />
+                                </td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td>Discount:</td>
+                            <td class="pos-right-align">
+                                <t t-esc="o.get_discount()"/>
+                            </td>
+                        </tr>
+                        <tr class="emph">
+                            <td>Total:</td>
+                            <td class="pos-right-align">
+                                <t t-esc="o.amount_total"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <table class='receipt-paymentlines'>
+                          <tr>
+                              <td>
+                                  Cash (VND)
+                              </td>
+                              <td class="pos-right-align">
+                                  <t t-esc="o.get_cash()"/>
+                              </td>
+                          </tr>
+                    </table>
+                    <br />
+                    <table class='receipt-change'>
+                        <tr><td>Change:</td><td class="pos-right-align">
+                            <t t-esc="o.get_change()"/>
+                            </td></tr>
+                    </table>
+                    <div><p>Xin cảm ơn quý khách. Hẹn gặp lại!!!</p></div>
+                    <!--<t t-if="receipt.footer">-->
+                        <!--<br />-->
+                        <!--<div style='text-align:center'>-->
+                            <!--<t t-esc="receipt.footer" />-->
+                        <!--</div>-->
+                    <!--</t>-->
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

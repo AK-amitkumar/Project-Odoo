@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_product_category_inherit_form" model="ir.ui.view">
+            <field name="name">product.category.inherit.form</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+             <!--<field name="priority">999</field>-->
+             <field name="priority" eval="999"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//group[@name='first']" position="inside">
+                        <field name="categ_type"/>
+                    </xpath>
+                    <group name="first" position="after">
+                        <group string="Note">
+                            <field name="note" nolabel="1"/>
+                        </group>
+                    </group>
+                </data>
+           </field>
+        </record>
+
+        <record id="view_product_category_inherit_search" model="ir.ui.view">
+            <field name="name">product.category.inherit.search</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="categ_type"/>
+                    <group expand="1" string="Group By">
+                       <filter string='Type' name="group_categ_type" context="{'group_by':'categ_type'}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_category_ndt_tree" model="ir.ui.view">
+            <field name="name">product.category.ndt.tree</field>
+            <field name="model">product.category</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="display_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_product_category_ndt_form" model="ir.ui.view">
+            <field name="name">product.category.ndt.form</field>
+            <field name="model">product.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;}"/>
+                        <div class="oe_title">
+                            <label for="name" string="Tên chủ đầu tư" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="e.g. Lamps"/></h1>
+                        </div>
+                        <group name="first" col="4" string="Category Type" invisible="1">
+                            <field name="parent_id"/>
+                            <field name="type"/>
+                            <field name="categ_type"/>
+                        </group>
+                        <group string="Mô tả">
+                            <field name="note" nolabel="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Dự án">
+                                <field name="child_id" mode="tree" readonly="1" context="{'form_view_ref': 'hethong_nhadat.view_product_category_da_form'}">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="code_da"/>
+                                        <field name="city"/>
+                                        <field name="district"/>
+                                        <field name="floor_count"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_product_category_da_form" model="ir.ui.view">
+            <field name="name">product.category.da.form</field>
+            <field name="model">product.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;}"/>
+                        <div class="oe_title">
+                            <label for="name" string="Tên dự án" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="e.g. Lamps"/></h1>
+                        </div>
+                        <group name="first" col="4" string="Category Type">
+                            <field name="parent_id" string="Chủ đầu tư" domain="[('categ_type', '=', 'ndt')]" context="{'form_view_ref': 'hethong_nhadat.view_product_category_ndt_form'}"/>
+                            <field name="type" invisible="1"/>
+                            <field name="categ_type" invisible="1"/>
+                        </group>
+                        <group col="4">
+                            <field name="code_da" colspan="2"/>
+                            <field name="floor_count" colspan="2"/>
+                        </group>
+                        <group string="Khu vực" col="4">
+                            <field name="city" colspan="2"/>
+                            <field name="district" colspan="2" domain="[('state_id', '=', city)]" context="{'default_state_id': city}"/>
+                        </group>
+                        <group string="Mô tả">
+                            <field name="note" nolabel="1"/>
+                        </group>
+                        <group string="Vị trí">
+                            <field name="position" nolabel="1"/>
+                        </group>
+                        <!--<group string="Chính sách bán hàng">-->
+                            <!--<field name="csbh" nolabel="1"/>-->
+                        <!--</group>-->
+                        <!--<group string="Nhà mẫu">-->
+                            <!--<field name="form_house" nolabel="1"/>-->
+                        <!--</group>-->
+                        <!--<group string="Thông tin thực tế">-->
+                            <!--<field name="info_real" nolabel="1"/>-->
+                        <!--</group>-->
+                        <group string="Bảng giá, CSBH...">
+                            <field name="attachments_da" widget="many2many_binary" nolabel="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Block">
+                                <field name="child_id" mode="tree" readonly="1" context="{'form_view_ref': 'hethong_nhadat.view_product_category_block_form'}">
+                                    <tree>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_product_category_block_form" model="ir.ui.view">
+            <field name="name">product.category.block.form</field>
+            <field name="model">product.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="110" icon="fa-th-list" type="action" context="{'search_default_categ_id': active_id}">
+                                <div class="o_form_field o_stat_info">
+                                    <span class="o_stat_value"><field name="product_count"/></span>
+                                    <span class="o_stat_text"> Products</span>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" string="Tên Block" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="e.g. Lamps"/></h1>
+                        </div>
+                        <group name="first" col="4" string="Category Type">
+                            <field name="parent_id" string="Dự án" required="1" domain="[('categ_type', '=', 'da')]" context="{'form_view_ref': 'hethong_nhadat.view_product_category_da_form'}"/>
+                            <field name="type" invisible="1"/>
+                            <field name="categ_type" invisible="1"/>
+                        </group>
+                        <group string="Mô tả">
+                            <field name="note" nolabel="1"/>
+                        </group>
+                        <group string="Bảng giá, CSBH...(DA)">
+                            <field name="attach_da" widget="many2many_binary" nolabel="1" readonly="1"/>
+                        </group>
+                        <group string="Bảng giá, CSBH...">
+                            <field name="attachments_block" widget="many2many_binary" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_product_category_ndt" model="ir.actions.act_window">
+            <field name="name">Chủ đầu tư</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>-->
+            <field name="context">{'default_categ_type': 'ndt'}</field>
+            <field name="domain">[('categ_type', '=', 'ndt')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Tạo mới Chủ đầu tư.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_product_category_da" model="ir.actions.act_window">
+            <field name="name">Dự án BDS</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>-->
+            <field name="context">{'default_categ_type': 'da'}</field>
+            <field name="domain">[('categ_type', '=', 'da')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Tạo mới Dự án BDS.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_product_category_block" model="ir.actions.act_window">
+            <field name="name">Block</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>-->
+            <field name="context">{'default_categ_type': 'block'}</field>
+            <field name="domain">[('categ_type', '=', 'block')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Tạo mới Block.
+                </p>
+            </field>
+        </record>
+
+        <record id="product.product_template_action" model="ir.actions.act_window">
+            <field name="name">Căn hộ</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_ndt_product_category_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_product_category_ndt_tree"/>
+            <field name="act_window_id" ref="action_product_category_ndt"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_ndt_product_category_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_product_category_ndt_form"/>
+            <field name="act_window_id" ref="action_product_category_ndt"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_da_product_category_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_product_category_ndt_tree"/>
+            <field name="act_window_id" ref="action_product_category_da"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_da_product_category_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_product_category_da_form"/>
+            <field name="act_window_id" ref="action_product_category_da"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_block_product_category_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_product_category_ndt_tree"/>
+            <field name="act_window_id" ref="action_product_category_block"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_block_product_category_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_product_category_block_form"/>
+            <field name="act_window_id" ref="action_product_category_block"/>
+        </record>
+
+        <menuitem name="Thông tin Sản Phẩm" id="menu_info_product" sequence="9"/>
+        <menuitem name="Chủ đầu tư" action="action_product_category_ndt" id="menu_product_category_ndt" parent="menu_info_product" sequence="1"/>
+        <menuitem name="Dự án" action="action_product_category_da" id="menu_product_category_da" parent="menu_info_product" sequence="2"/>
+        <menuitem name="Block" action="action_product_category_block" id="menu_product_category_block" parent="menu_info_product" sequence="3"/>
+        <menuitem name="Căn hộ" action="product.product_template_action" id="menu_product_bds" parent="menu_info_product" sequence="4"/>
+
+    </data>
+</odoo>

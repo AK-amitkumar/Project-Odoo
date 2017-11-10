@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="shop_purchase_analysis_report_view_pivot" model="ir.ui.view">
+            <field name="name">shop.purchase.report.pivot</field>
+            <field name="model">shop.purchase.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Purchase Analysis" disable_linking="True">
+                    <field name="order_id" type="dimensions"/>
+                    <field name="partner_id" type="dimensions"/>
+                    <field name="product_qty" type="measure"/>
+                    <field name="qty_received" type="measure"/>
+                    <field name="qty_coming" type="measure"/>
+                    <field name="qty_waiting" type="measure"/>
+                    <field name="price_unit" type="measure"/>
+                    <field name="price_subtotal" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="shop_purchase_analysis_report_view_graph" model="ir.ui.view">
+            <field name="name">shop.purchase.report.graph</field>
+            <field name="model">shop.purchase.report</field>
+            <field name="arch" type="xml">
+                <graph string="Purchase Analysis" stacked="True">
+                    <field name="order_id" type="row"/>
+                    <field name="product_qty" type="measure"/>
+                    <field name="qty_received" type="measure"/>
+                    <field name="qty_coming" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="shop_purchase_analysis_report_action" model="ir.actions.act_window">
+             <field name="name">Purchase Analysis</field>
+             <field name="res_model">shop.purchase.report</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">pivot,graph</field>
+        </record>
+
+        <record id="shop_purchase_analysis_report_action_graph" model="ir.actions.act_window">
+             <field name="name">Purchase Analysis</field>
+             <field name="res_model">shop.purchase.report</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">graph,pivot</field>
+        </record>
+
+
+        <menuitem id="purchase.purchase_report" name="Reports" parent="purchase.menu_purchase_root" sequence="99"
+            groups="purchase.group_purchase_manager"/>
+
+        <menuitem id="purchase_report_original" name="Purchase" parent="purchase.purchase_report" sequence="5"
+            action="purchase.action_purchase_order_report_all"/>
+        <menuitem id="shop_purchase_report_analysis" name="Purchase Analysis" parent="purchase.purchase_report" sequence="10"
+            action="shop_purchase_analysis_report_action"/>
+
+    </data>
+</odoo>

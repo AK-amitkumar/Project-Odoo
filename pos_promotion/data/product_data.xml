@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+
+        <record id="promotion_service_01" model="product.product">
+            <field name="name">Promotion service</field>
+            <field name="standard_price">0</field>
+            <field name="list_price">0</field>
+            <field name="type">service</field>
+            <field name="available_in_pos">True</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="uom_po_id" ref="product.product_uom_unit"/>
+            <field name="categ_id">3</field>
+            <field name="description">PS</field>
+            <field name="default_code">PS</field>
+            <field name="taxes_id">[]</field>
+            <field name="image" type="base64" file="pos_promotion/static/description/promotion.png"/>
+        </record>
+
+    </data>
+</odoo>

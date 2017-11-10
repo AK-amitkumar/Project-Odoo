@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<templates id="template" xml:space="preserve">
+
+	<t t-name="WkDiscountPopup">
+		<div class="modal-dialog" id="sunny-test">
+			<div class="popup popup-textinput" style="height:400px !important">
+				<div class="title" style="height:3% !important;margin-bottom:0px;">
+					<div>
+						<p style="position: absolute;height: 27px;width: 354px;margin-top: -8px;margin-left:10%">
+							<t t-esc=" widget.options.title || 'Discount List' " />
+						</p>
+						<t t-if="widget.pos.config.allow_custom_discount">
+							<div class="button customize" style="position: absolute;margin-left: 321px;height: 41px;margin-top: -16px;width:150px;">
+								<i class="fa fa-tags"></i> Custom Discount
+							</div>
+						</t>
+					</div>
+				</div>
+				<div style="height:70%;overflow-y: scroll;">
+					<div class="wk_popup_body">
+						<t t-if="!widget.pos.all_discounts.length">
+							<div style="margin:12%">
+								No discount is available for current POS Session, please add discount from configuration or create a custom discount.
+							</div>
+						</t>
+						<t t-foreach="widget.pos.all_discounts" t-as="item">
+							<span class='wk_product_discount' t-att-id="item.id" >
+								<div class="discount_percent" t-att-id="item.id">
+									<t t-if="item.discount_percent%1!=0">
+										<t t-esc="widget.format_currency_no_symbol(item.discount_percent)"/>%
+									</t>
+									<t t-if="item.discount_percent%1==0">
+										<t  t-esc="item.discount_percent "/>%
+									</t>
+								</div> 	
+								<div style="margin-top: 9px;height: 15px;width: 118px;">
+								<t t-esc="item.name"/>
+								</div>
+							</span>  
+						</t>
+					</div>
+				</div>
+				<div id="discount_error" style="background:#ffa566;height:22px;display:none" >
+					   <span style="color:brown"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i >   Please select a discount</span>
+				</div>
+				<div class="footer">
+					<div class="button apply">
+						Selected Line
+					</div>
+					<div class="button apply_complete_order">
+						 Whole Order
+					</div>
+					<div class="button cancel">
+						Cancel
+					</div>
+		   		</div>
+			</div>
+		</div>	  
+	</t>
+
+	<t t-name="WebkulErrorPopup">
+		<div class="modal-dialog">
+			<div class="popup popup-textinput" style="height: 203px !important;width: 580px !important;margin-top: 188px;">
+				<p class="title"><t t-esc=" widget.options.title || '' " /></p>
+				<p class="body"><t t-esc=" widget.options.body || '' " /></p>
+				<div class="footer">
+					<div class="button" id="password_ok_button">
+						OK 
+					</div>
+				</div>
+			</div>
+		</div>
+	</t>
+
+	<t t-name="WkCustomDiscountPopup">
+		<div class="modal-dialog" id="sunny-test">
+			<div class="popup popup-textinput" style="height:350px !important">
+				<p class="title"><t t-esc=" widget.options.title || 'Customize Discount' " /></p>
+				<div class="body">
+					<table class='receipt-total'>
+						<tr>
+							<th>Discount</th>
+							<td>
+								<input id="discount" style="width: 118px;margin-left: -145px;padding-bottom: -17px;" type="number" name="discount"/>%
+							</td>
+						</tr>
+						<tr>
+							<th>Reason</th>
+							<td>
+								<textarea  id="reason" style="margin-left:20px; margin-top:4px;" rows="4" cols="26" name="custom_discount_reason" form="usrform"></textarea>
+							</td>
+						</tr>						
+					</table>
+					<div id="error_div" style="background:#ffa566;height:20px;padding:10px;display:none" >
+					   <span id="customize_error" style="color:brown"></span>
+					</div>
+				</div>
+				<div class="footer">					
+					<div class="button current_product">
+						Selected line
+					</div>
+					<div class="button whole_order">
+						Whole Order
+					</div>
+					<div class="button custom_cancel">
+						Cancel
+					</div>
+		   		</div>
+			</div>
+		</div>
+	</t>
+
+	<t t-extend="Orderline">
+		<t t-jquery='ul.info-list' t-operation='append'>
+			<div id='custom_discount_reason' style='font-weight:bold;'>
+				<t t-esc="line.get_custom_discount_reason()"/>
+			</div>
+		</t>
+	</t>
+
+	<t t-extend="PosTicket">
+		<t t-jquery=".receipt-orderlines tr td:nth-child(1)" t-operation="append">
+			<t t-if="orderline.get_custom_discount_reason()!=''">
+				<div class="pos-disc-font">
+					<t t-esc="orderline.get_custom_discount_reason()" />
+				</div>
+			</t>
+		</t>
+	</t>
+
+</templates>

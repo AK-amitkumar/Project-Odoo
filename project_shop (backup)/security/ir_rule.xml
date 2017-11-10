@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="shop_pos_user_rule" model="ir.rule">
+            <field name="name">Pos Rule Shop User</field>
+            <field name="model_id" ref="point_of_sale.model_pos_config"/>
+            <field name="domain_force">[('stock_location_id.user_ids','in',user.id)]</field>
+            <field name="groups" eval="[(4, ref('point_of_sale.group_pos_user'))]"/>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="0" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+        </record>
+
+        <record id="stock_picking_type_receipts_user_rule" model="ir.rule">
+            <field name="name">Stock Picking Type Rule Receipts User</field>
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+            <field name="domain_force">[('warehouse_id.lot_stock_id.user_ids','in',user.id), ('code', '=', 'incoming')]</field>
+            <field name="groups" eval="[(4, ref('group_inventory_receipts'))]"/>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+        </record>
+
+        <record id="stock_picking_type_delivery_user_rule" model="ir.rule">
+            <field name="name">Stock Picking Type Rule Delivery User</field>
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+            <field name="domain_force">[('warehouse_id.lot_stock_id.user_ids','in',user.id), ('code', '=', 'outgoing')]</field>
+            <field name="groups" eval="[(4, ref('group_inventory_delivery'))]"/>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+        </record>
+
+        <!--<record id="stock_picking_type_transfer_user_rule" model="ir.rule">-->
+            <!--<field name="name">Stock Picking Type Rule Transfer User</field>-->
+            <!--<field name="model_id" ref="stock.model_stock_picking_type"/>-->
+            <!--<field name="domain_force">[('warehouse_id.lot_stock_id.user_ids','in',user.id), ('code', '=', 'internal')]</field>-->
+            <!--<field name="groups" eval="[(4, ref('group_inventory_internal_transfer'))]"/>-->
+            <!--<field eval="0" name="perm_unlink"/>-->
+            <!--<field eval="1" name="perm_write"/>-->
+            <!--<field eval="1" name="perm_read"/>-->
+            <!--<field eval="0" name="perm_create"/>-->
+        <!--</record>-->
+
+        <record id="stock_picking_type_shop_manager_rule" model="ir.rule">
+            <field name="name">Stock Picking Type Rule Shop Manager</field>
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+            <field name="domain_force">[('warehouse_id.lot_stock_id.user_ids','in',user.id), ('code', 'in', ('outgoing','incoming'))]</field>
+            <field name="groups" eval="[(4, ref('group_inventory_shop_manager'))]"/>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+        </record>
+
+        <record id="stock_picking_type_manager_rule" model="ir.rule">
+            <field name="name">Stock Picking Type Rule Manager</field>
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('stock.group_stock_manager'))]"/>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="1" name="perm_create"/>
+        </record>
+
+        <record id="stock_picking_rule_receipt_user" model="ir.rule">
+            <field name="name">Stock Picking Rule Receipt User</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="domain_force">['|', ('picking_type_id.default_location_dest_id.user_ids','in',user.id), ('location_dest_id.user_ids','in',user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_inventory_receipts'))]"/>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="1" name="perm_create"/>
+        </record>
+
+        <record id="stock_picking_rule_delivery_user" model="ir.rule">
+            <field name="name">Stock Picking Rule Delivery User</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="domain_force">[('picking_type_id.default_location_src_id.user_ids','in',user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_inventory_delivery'))]"/>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="1" name="perm_create"/>
+        </record>
+
+        <record id="stock_picking_rule_manager" model="ir.rule">
+            <field name="name">Stock Picking Rule Manager</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('stock.group_stock_manager'))]"/>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="1" name="perm_create"/>
+        </record>
+
+        <!--<record id="stock_move_shop_manager_rule" model="ir.rule">-->
+            <!--<field name="name">Stock Move Rule Shop Manager</field>-->
+            <!--<field name="model_id" ref="stock.model_stock_move"/>-->
+            <!--<field name="domain_force">[('location_id.user_ids','in',user.id)]</field>-->
+            <!--<field name="groups" eval="[(4, ref('group_inventory_shop_manager'))]"/>-->
+            <!--<field eval="0" name="perm_unlink"/>-->
+            <!--<field eval="1" name="perm_write"/>-->
+            <!--<field eval="1" name="perm_read"/>-->
+            <!--<field eval="1" name="perm_create"/>-->
+        <!--</record>-->
+    </data>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<odoo noupdate="1">
+    <record id="customer_discount_1" model="pos.custom.discount">
+        <field name="name">Loyalty Discount</field>
+        <field name="discount_percent">5</field>
+        <field name="description">Discount For Regular Customer</field>
+        <field name="allow_custom_discount">1</field>
+        <field eval="[(6, 0, [ref('point_of_sale.pos_config_main')])]" name="available_in_pos"/>
+    </record>
+</odoo>

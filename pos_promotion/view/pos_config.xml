@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="pos_config_promotion_view">
+            <field name="name">pos.config.pos_promotion_view</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//group[@name='features']" position="before">
+                        <group string="Promotion Programs">
+                            <field name="allow_promotion"/>
+                            <field name="promotion_ids" attrs="{'required':[('allow_promotion', '=', True)], 'invisible': [('allow_promotion', '=', False)]}"/>
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</odoo>

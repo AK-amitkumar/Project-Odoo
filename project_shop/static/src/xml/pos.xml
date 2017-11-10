@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-extend="PosTicket">
+        <t t-jquery="colgroup" t-operation="replace">
+            <colgroup>
+                <col width='50%' />
+                <col width='20%' />
+                <col width='30%' />
+            </colgroup>
+        </t>
+        <t t-jquery=".pos-center-align" t-operation="before">
+            <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';">Cty TNHH N&amp;Y</p>
+            <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';">Keds Shoes</p>
+            <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';">Tel:0838222046</p>
+            <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';">L3-41 Saigon Center</p>
+            <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';">Phieu tam tinh, Khong thay the hoa don</p>
+        </t>
+        <t t-jquery=".receipt-change" t-operation="after">
+            <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';">Doi tra hang trong 5 ngay, Khong doi tra hang cho sale, khong hoan tien mat, giu bill khi doi tra hang. Without Exchange for sales item, No refund.</p>
+            <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';">thank you for shopping with us</p>
+            <p style="text-align:center; font-size:14px; margin:0; font-family:'Inconsolata';"><t t-esc="moment().format('L LT')"/></p>
+        </t>
+    </t>
+    <t t-extend="report.client_action.ControlButtons">
+        <t t-jquery=".o_report_print" t-operation="replace"/>
+    </t>
+</templates>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="change_title_web_pos" inherit_id="point_of_sale.index">
+        <xpath expr="//title" position="replace">
+            <title>Keds POS</title>
+        </xpath>
+    </template>
+    <template id="change_title_web" inherit_id="web.layout">
+        <xpath expr="//title" position="replace">
+            <title t-esc="title or 'Keds'"/>
+        </xpath>
+    </template>
+</odoo>

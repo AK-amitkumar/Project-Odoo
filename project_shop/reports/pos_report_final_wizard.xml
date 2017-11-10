@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_wizard_pos_report" model="ir.ui.view">
+        <field name="name">Pos Report</field>
+        <field name="model">pos.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Choose your date">
+                <group>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                </group>
+                <footer>
+                    <button name="open_report" string="Open Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_wizard_pos_report" model="ir.actions.act_window">
+        <field name="name">Pos Report Final</field>
+        <field name="res_model">pos.report.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_wizard_pos_report"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="menu_action_wizard_pos_report" action="action_wizard_pos_report" parent="point_of_sale.menu_point_rep" sequence="12" groups="point_of_sale.group_pos_manager"/>
+
+    <record id="custom_pos_order_material_tree" model="ir.ui.view">
+        <field name="name">pos.order.material.tree</field>
+        <field name="model">pos.order.material</field>
+        <field name="arch" type="xml">
+            <tree string="Pos Report Final">
+                <field name="material"/>
+                <field name="qty"/>
+                <field name="sale_price"/>
+                <field name="pur_price"/>
+                <field name="amount"/>
+                <field name="profit"/>
+                <field name="stock"/>
+                <field name="shop"/>
+                <field name="transit"/>
+            </tree>
+       </field>
+    </record>
+</odoo>

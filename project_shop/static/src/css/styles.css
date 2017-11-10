@@ -1,0 +1,61 @@
+@font-face{
+    font-family: 'Inconsolata';
+    src: url(../fonts/Inconsolata.otf);
+}
+.reprint .pos-sale-ticket {
+    text-align: left;
+    width: 300px;
+    background-color: white;
+    /*margin: 20px;*/
+    /*padding: 15px;*/
+    font-size: 14px;
+    padding-bottom:30px;
+    display: inline-block;
+    font-family: "Inconsolata";
+    /*border: solid 1px rgb(220,220,220);*/
+    border-radius: 3px;
+    overflow: hidden;
+    max-width: 250px;
+}
+.reprint .pos-sale-ticket pre{
+    font-family: "Inconsolata";
+}
+.reprint .pos-sale-ticket .emph{
+    font-size: 20px;
+    margin:5px;
+}
+.reprint .pos-sale-ticket table {
+    width: 100%;
+    border: 0;
+    table-layout: fixed;
+    font-size: 15px;
+}
+.reprint .pos-sale-ticket table td {
+    border: 0;
+    word-wrap: break-word;
+}
+.reprint .pos-center-align {
+    text-align: center;
+}
+.reprint .pos-right-align {
+    text-align: right;
+}
+.reprint .pos-center-align {
+    text-align: center;
+}
+.reprint .pos-sale-ticket .receipt-paymentlines {
+    font-size: 14px;
+}
+.reprint .pos-sale-ticket .receipt-thanks {
+    font-size: 14px;
+    text-align: center;
+}
+
+#pos_reprint .reprint {
+    display: inline-table;
+    background-color: #fff;
+    padding: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px;
+}

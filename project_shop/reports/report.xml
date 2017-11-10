@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="launch_pos_reprint"
+            model="pos.order"
+            string="POS Reprint"
+            report_type="qweb-html"
+            name="project_shop.pos_reprint"
+            file="project_shop.pos_reprint"
+        />
+    </data>
+</openerp>

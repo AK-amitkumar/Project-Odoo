@@ -1,0 +1,161 @@
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<section class="oe_container oe_dark lead">
+    <div class="oe_row">    
+        <div class='oe_span12'>
+            <div class="panel " >
+                <div class="panel-heading">
+                    <div class="alert alert-info" style="padding:8px;font-weight: 300; font-size: 20px;"><i class="fa fa-arrow-circle-o-right"></i><b> POS Custom Discount </b></div>
+                    <p>
+                    For Odoo POS we have come up with this module named POS Custom Discount which allows seller to give discount on single order line as well as on  whole order.It has changed  the old functionality of discount button.
+                    In  this module ,when you click on discount button a new window will appear  which contains those discounts that are configured from backend.
+                    It also allows seller to create custom discount(new discount) in running POS session .In every custom discount a reason will be mentioned that is saved in backend and will also reflect in orderline and receipt. 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark lead">
+    <div class="oe_row">    
+        <div class='oe_span12'>
+            <div class="panel " >
+                <div class="panel-heading">
+                    <div class="alert alert-info" style="padding:8px;font-weight: 300; font-size: 20px;"><i class="fa fa-arrow-circle-o-right"></i><b> Salient Features </b></div>
+                    <ul class="list-unstyled ">
+                        <li style="font-size:initial"><i class="fa fa-check text-primary"></i> POS Custom Discount allows seller to provide discount on single orderline as well as on complete order</li> 
+                        <li style="font-size:initial"><i class="fa fa-check text-primary"></i> Seller can create multiple discounts on different basis from backend.</li>
+                        <li style="font-size:initial"><i class="fa fa-check text-primary"></i> Only those discounts will be available in POS Session that are selected in current Point Of Sale Configuration.</li>
+                        <li style="font-size:initial"><i class="fa fa-check text-primary"></i> Seller can create custom discount in running POS session after entering his security pin and reason for discount</li>
+                        <li style="font-size:initial"><i class="fa fa-check text-primary"></i> Only authorized POS users are allowed to create custom discount</li>
+                        <li style="font-size:initial"><i class="fa fa-check text-primary"></i> The Reason for custom discount will be mentioned on receipt and get saved in backend also.</li>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <ul class="nav nav-tabs ">
+        <li class="active"><a href="#odoo_pos_custom_discount" data-toggle="tab"><b>POS Session View</b></a></li>
+        <li><a href="#odoo_pos_custom_discount_config" data-toggle="tab"><b>Setup & Configure</b></a></li>
+    </ul>
+
+    <div id="my-tab-content" class="tab-content">     
+        <div class="tab-pane active" id="odoo_pos_custom_discount"> 
+            <section class="oe_container  oe_dark">
+                <div class="oe_row">    
+                    <div class='oe_span12'>
+                        <div class="panel panel-info" >
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-pencil-square-o "/><b> POS Session View</b></h3>
+                            </div>
+                            <div class="panel-body">
+                                <section class="oe_container  lead">  
+                                    <div class="panel-heading alert alert-success"><i class="fa fa-hand-o-right" ></i> <b>On Clicking Discount Button</b></div>
+                                        <p><img class="img-border img-responsive thumbnail" src="discount.png" alt="aplly_voucher"></p>
+                                        <p><img class="img-border img-responsive thumbnail" src="screen3.png" alt="aplly_voucher"></p>
+                                </section>        
+                                <section class="oe_container  lead">
+                                <div class="panel-heading alert alert-success"><i class="fa fa-hand-o-right" ></i> <b>On selecting discount from available discounts</b></div> 
+                                    <p style="font-size:initial">After selecting discount from discount list, if seller click on selected line button then discount will be applied on selected order line(selected product in cart)_</p>
+                                        <p><img class="img-border img-responsive thumbnail" src="screen4.png" alt="create_apply"></p>
+                                    <p style="font-size:initial">After selecting discount from discount list, if seller click on whole order button then discount will be applied on all product in cart(complete order). </p>
+                                        <p><img class="img-border img-responsive thumbnail" src="screen5.png" alt="create_apply"></p>
+                                </section>
+                                <section class="oe_container  lead">
+                                <div class="panel-heading alert alert-success"><i class="fa fa-hand-o-right" ></i> <b>Creating custom discount</b></div>
+                                    <p style="font-size:initial">Click on custon discount button to create a custom discount</p>
+                                    <p><img class="img-border img-responsive thumbnail" src="screen12.png" alt="validate"></p>
+                                    <p style="font-size:initial">After clicking on custom discount button, user authentication will be done. A valid POS user needs to enter Security Pin to create custom discount. This ensures that only the authorized POS user can create custom discount.</p>
+                                    <p><img class="img-border img-responsive thumbnail" src="screen11.png" alt="validate"></p>
+                                    <p style="font-size:initial">After password authentication,this window will be shown as shown below. It contains discount percentage and discount reason. Reason for custom discount will be mentioned on receipt, orderline and get saved in backend also.</p>
+                                    <p><img class="img-border img-responsive thumbnail" src="screen6.png" alt="validate"></p>
+                                    <p style="font-size:initial">If seller click on selected line button then discount will be applied on selected order line(selected product in cart) with reason.</p>
+                                    <p><img class="img-border img-responsive thumbnail" src="screen7.png" alt="validate"></p>
+                                    <p style="font-size:initial">If seller click on whole order button then discount will be applied on all product in cart(complete order) with reason as shown bellow. </p>
+                                    <p><img class="img-border img-responsive thumbnail" src="screen8.png" alt="validate"></p>
+                                </section>
+                                <section class="oe_container  lead"> 
+                                <div class="panel-heading alert alert-success"><i class="fa fa-hand-o-right" ></i> <b>Order Receipt</b></div>
+                                        <p><img class="img-border img-responsive thumbnail" src="screen9.png" alt="redeem"></p>
+                                </section>
+                            </div>
+                        </div>
+                   </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="tab-pane" id="odoo_pos_custom_discount_config">
+             <section class="oe_container  oe_dark">
+                <div class="oe_row">    
+                    <div class='oe_span12'>
+                        <div class="panel panel-info" >
+                            <div class="panel-heading ">
+                                <h3 class="panel-title"><i class="fa fa-pencil-square-o "/><b>Configuring and creating Discounts </b></h3>
+                            </div>
+                            <div class="panel-body">
+                                 <section class="oe_container  lead"> 
+                                    <div class="panel-heading alert alert-success"><i class="fa fa-hand-o-right" /><b>Create a discount</b></div>
+                                        <p><img class="img-border img-responsive thumbnail" src="screen1.png" alt="def_conf1"/></p>
+                                </section> 
+                                <section class="oe_container  lead"> 
+                                    <div class="panel-heading alert alert-success"><i class="fa fa-hand-o-right" /><b>Configuration</b></div>
+                                        <p><img class="img-border img-responsive thumbnail" src="screen2.png" alt="def_conf1"/></p>
+                                </section>
+                                <section class="oe_container  lead"> 
+                                    <div class="panel-heading alert alert-success"><i class="fa fa-hand-o-right" /><b>Cusom discount reason saved at backend</b></div>
+                                        <p><img class="img-border img-responsive thumbnail" src="screen10.png" alt="def_conf1"/></p>
+                                </section>
+                           </div>              
+                       </div>
+                   </div>
+                </div>
+            </section>  
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class='oe_container oe_dark'>
+    <div class='oe_row'>
+    <div class="oe_span12">
+        <h2 class='oe_slogan'>Complimentary Support</h2>
+            <p>
+            You will get 90 days free support for installation, configuration, or reinstallation (not including data recovery) or any type of issue related to this module.
+            </p>
+        </div>
+    </div>
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2 class="oe_slogan">Help and Support</h2>
+        </div>
+         <div class="oe_slogan oe_spaced">
+            <img src="icon-help.png">
+            <span ><a onMouseOver="this.style.color='#AC1EE0'"
+   onMouseOut="this.style.color='#7c7bad'" style="color:#7c7bad;" target="_blank" href="https://webkul.uvdesk.com/en/customer/create-ticket">Help</a></span>
+            <img src="icon-support.png">
+            <span ><a onMouseOver="this.style.color='#AC1EE0'"
+   onMouseOut="this.style.color='#7c7bad'" style="color:#7c7bad;" target="_blank" href="https://webkul.uvdesk.com/en/customer/create-ticket">Support</a></span>
+            <img src="icon-features.png">
+            <span ><a onMouseOver="this.style.color='#AC1EE0'"
+   onMouseOut="this.style.color='#7c7bad'" style="color:#7c7bad;" target="_blank" href="https://webkul.uvdesk.com/en/customer/create-ticket">Request new Features</a></span>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="oe_container">
+    <div class="oe_span12">
+        <!-- Piwik Image Tracker-->
+<img src="http://odooimg.webkul.com/analytics/piwik/piwik.php?idsite=3&rec=1&action_name=POS-CUSTOM-DISCOUNT&url=https://apps.openerp.com/apps/modules/10.0/pos_custom_discounts&uid=pos_custom_discounts" style="border:0" alt="" />
+<!-- End Piwik -->
+    </div>
+</section>
+	

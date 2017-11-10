@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mb_invoice_number_user,invoice.number user,model_invoice_number,base.group_user,1,0,0,0
+access_mb_invoice_number_accountant,invoice.number accountant,model_invoice_number,account.group_account_invoice,1,1,1,1
+access_mb_invoice_notation_user,invoice.notation user,model_invoice_notation,base.group_user,1,0,0,0
+access_mb_invoice_notation_accountant,invoice.notation accountant,model_invoice_notation,account.group_account_invoice,1,1,1,1
+access_mb_invoice_no_user,mb.invoice.no user,model_mb_invoice_no,base.group_user,1,0,0,0
+access_mb_invoice_no_accountant,mb.invoice.no accountant,model_mb_invoice_no,account.group_account_invoice,1,1,1,1
+access_mb_invoice_no_line_user,mb.invoice.no.line user,model_mb_invoice_no_line,base.group_user,1,0,0,0
+access_mb_invoice_no_line_accountant,mb.invoice.no.line accountant,model_mb_invoice_no_line,account.group_account_invoice,1,1,1,1
