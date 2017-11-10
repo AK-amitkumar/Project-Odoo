@@ -39,9 +39,9 @@ class PurchaseOrderLine(models.Model):
             total_coming = 0.0
             picking_ids = line.order_id.picking_ids
             for pick in picking_ids:
-                if pick.state == 'assigned':
-                    if pick.pack_operation_product_ids:
-                        total_coming += sum(pack.qty_done for pack in pick.pack_operation_product_ids if pack.product_id == line.product_id)
+                if pick.sudo().state == 'assigned':
+                    if pick.sudo().pack_operation_product_ids:
+                        total_coming += sum(pack.qty_done for pack in pick.sudo().pack_operation_product_ids if pack.product_id == line.product_id)
 
             line.qty_waiting = line.product_qty - line.qty_received - total_coming
             line.qty_coming = total_coming

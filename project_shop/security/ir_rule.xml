@@ -137,7 +137,7 @@
         <record id="stock_picking_rule_delivery_user" model="ir.rule">
             <field name="name">Stock Picking Rule Delivery User</field>
             <field name="model_id" ref="stock.model_stock_picking"/>
-            <field name="domain_force">[('picking_type_id.default_location_src_id.user_ids', 'in', user.id)]</field>
+            <field name="domain_force">[('picking_type_id.default_location_src_id.user_ids','in',user.id)]</field>
             <field name="groups" eval="[(4, ref('group_inventory_delivery'))]"/>
             <field eval="1" name="perm_unlink"/>
             <field eval="1" name="perm_write"/>
